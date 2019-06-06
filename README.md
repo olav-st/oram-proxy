@@ -1,5 +1,7 @@
 # oram-proxy
-Proxy that allows cloud applications to use Oblivious RAM (ORAM). The proxy mimics a cloud object storage service (e.g OpenStack Swift) and runs the requests it receives through an ORAM algorithm. The ORAM algorithm can either use the local file system or a cloud storage service as its backend. This code is based on the [CURIOUS framework](http://seclab.soic.indiana.edu/curious/) by Bindschaedler et al.
+Proxy that allows cloud applications to use Oblivious RAM (ORAM). The proxy mimics a cloud object storage service (e.g OpenStack Swift) and runs the requests it receives through an ORAM algorithm. The ORAM algorithm can either use the local file system or a cloud storage service as its backend. 
+
+This code is based on the [CURIOUS framework](http://seclab.soic.indiana.edu/curious/) by Bindschaedler et al. The main additions are found in the package `eoram.cloudexp.service.application.http`.
 
 ## Compiling
 
