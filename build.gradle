@@ -1,0 +1,68 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "io.spring.gradle:dependency-management-plugin:1.0.3.RELEASE"
+    }
+}
+
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group 'eoram.cloudexp'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+application {
+    mainClassName = "eoram.cloudexp.CloudExperiments"
+}
+
+test {
+    useJUnitPlatform()
+}
+
+repositories {
+    mavenCentral()
+}
+
+apply plugin: "io.spring.dependency-management"
+
+dependencyManagement {
+    imports {
+        mavenBom 'com.amazonaws:aws-java-sdk-bom:1.11.13'
+    }
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.1.0'
+    testImplementation group: 'junit', name: 'junit', version: '4.11'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.1.0'
+    implementation group: 'org.slf4j', name: 'slf4j-simple', version: '1.6.1'
+    implementation 'com.amazonaws:aws-java-sdk-s3:1.11.13'
+    implementation group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.2'
+    implementation group: 'javax.xml.bind', name: 'jaxb-api', version: '2.2.4'
+    implementation 'org.javaswift:joss:0.10.2'
+    implementation 'org.eclipse.jetty:jetty-server:9.4.14.v20181114'
+    implementation 'org.eclipse.jetty:jetty-servlet:9.4.14.v20181114'
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.9.7'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.9.7'
+    implementation group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-xml', version: '2.9.7'
+    implementation group: 'com.google.guava', name: 'guava', version: '19.0'
+}
+
+tasks.withType(JavaExec) {
+    jvmArgs = ['-Xms512m', '-Xmx16g']
+}
+
+run {
+    args = ["--fast-init", "--http-proxy=8080", "--posmap-cutoff=536870912", 
+		"--max-blocks=327680",
+		"--block-byte-size=16384",
+		"123456789",
+		"ObliviStore",
+		"AsyncLocal"]
+}
